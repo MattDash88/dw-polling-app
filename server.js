@@ -22,7 +22,7 @@ app.prepare()
         const server = express()
 
         // Submit the vote
-        server.post('/vote', function (req, res) {
+        server.post('/poll/vote', function (req, res) {
             try {
                 if (req.method === 'POST') {
                     let body = '';
@@ -33,7 +33,6 @@ app.prepare()
                         var payload = JSON.parse(body)
                         pool.query(`INSERT INTO votes ( address, message, signature ) VALUES ('${payload.addr}','${payload.msg}','${payload.sig}')`, function (err, result) {
                             if (err) throw err;
-                            console.log(result)
                         })
 
                         res.end('ok');
@@ -48,13 +47,12 @@ app.prepare()
         });
         
         // Retrieve votes from database
-        server.get('/view_votes', function (req, res) {
+        server.get('/poll/view_votes', function (req, res) {
             try {
                 pool.query(`SELECT * FROM votes`, function (err, result) {
                     if (err) throw err;
                     var objs = []
                     //console.log(result.rows)
-                    console.log(result)
                     Object.values(result.rows).map((item) => {
                         objs.push({
                             address: item.address,

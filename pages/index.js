@@ -17,7 +17,6 @@ import copy from 'clipboard-copy';
 class Poll extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             value: '',
             address: '',
@@ -63,7 +62,7 @@ class Poll extends React.Component {
             })
         } else {
             // TODO: handle network errors / what if promise never returned?
-            const response = await axios.post('/vote', {
+            const response = await axios.post('/poll/vote', {
                 addr: address,
                 msg: payload,
                 sig: signature,
