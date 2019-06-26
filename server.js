@@ -78,7 +78,7 @@ app.prepare()
             app.render(req, res, actualPage, queryParams)
         })
 
-        server.listen('5000', (err) => {
+        server.listen(port, (err) => {
             if (err) throw err
         })
     }).catch((ex) => {
