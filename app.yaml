@@ -1,13 +1,18 @@
 service: dw-polling
-runtime: nodejs10
-env: standard
+runtime: nodejs
+env: flexible
 
 # update with Redis instance network name
-vpc_access_connector:
-  name: "projects/dwatch-184008/locations/us-central1/connectors/dashwatchbeta-connector"
+network:
+  name: default
 
-instance_class: F1
-automatic_scaling:
-  target_cpu_utilization: 0.6
-  min_instances: 0
-  max_instances: 1
+# update with Redis instance network name
+beta_settings:
+  cloud_sql_instance: dwatch-184008:us-east1:dashwatch-polling>=5432
+
+manual_scaling:
+  instances: 1
+resources:
+  cpu: 1
+  memory_gb: 0.25
+  disk_size_gb: 10 
