@@ -1,5 +1,7 @@
 import React from 'react';
+import 'semantic-ui-react'
 import {
+    Container,
     Label,
     Form,
     Checkbox,
@@ -9,10 +11,12 @@ import {
     TextArea,
     Input,
     Dimmer,
-    Header,
 } from 'semantic-ui-react';
 import axios from 'axios';
 import copy from 'clipboard-copy';
+
+import Header from '../components/headers/IndexHeader';
+
 
 class Poll extends React.Component {
     constructor(props) {
@@ -83,7 +87,11 @@ class Poll extends React.Component {
 
     render() {
         return (
-            <main>
+            <div className="ui container" style={{ 
+                marginTop: '20px',
+                 }}>
+                    <Header />
+                <Container as={Segment}>
                 Would you support a treasury proposal to buy a Lambo for all Dash Watch Report Team members?
                 <Form.Field>
                     <Checkbox
@@ -145,7 +153,8 @@ class Poll extends React.Component {
                     </Button>
                 </Form>
                 {this.state.response_message}
-            </main>
+                </Container>
+            </div>
         )
     }
 }

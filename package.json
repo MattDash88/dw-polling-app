@@ -24,10 +24,13 @@
     "clipboard-copy": "^3.0.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
     "next": "^8.1.0",
     "pg": "^7.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.2"
   }
 }
