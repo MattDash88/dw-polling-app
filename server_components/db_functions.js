@@ -1,4 +1,5 @@
 require('dotenv').config()    // Access .env variables
+const fs = require('fs');
 const { Pool, Client } = require('pg');
 const pool = new Pool({
     host: process.env.PG_HOST,
@@ -6,11 +7,32 @@ const pool = new Pool({
     password: process.env.PG_PW,
     database: process.env.PG_DB,
     port: process.env.PG_PORT,
+    ssl: {
+        rejectUnauthorized : false,
+        ca   : fs.readFileSync("./server-ca.pem").toString(),
+        key  : fs.readFileSync("./client-key.pem").toString(),
+        cert : fs.readFileSync("./client-cert.pem").toString(),
+  },
 });
+
+var pushVote = function pushFunction(payload) {
+    return new Promise((resolve, reject) => {
+        pool.query(`INSERT INTO votes ( address, message, signature ) 
+                    VALUES ('${payload.addr}','${payload.msg}','${payload.sig}')`, 
+                    function (err, results) {
+            if (err) reject(err);
+            else {
+                resolve('ok');
+            }
+        })
+    })
+}
 
 var retrieveVotes = function retrieveFunction() {
     return new Promise((resolve, reject) => {
-        pool.query(`SELECT * FROM votes`, function (err, results) {
+        pool.query(`SELECT * 
+                    FROM votes`, 
+                    function (err, results) {
             if (err) reject(err);
             else {
                 var objs = [];
@@ -29,4 +51,5 @@ var retrieveVotes = function retrieveFunction() {
 
 module.exports = {
     retrieveVotes,
+    pushVote,
 }

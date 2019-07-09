@@ -46,18 +46,19 @@ app.prepare()
                     });
                     req.on('end', () => {
                         var payload = JSON.parse(body)
-                        pool.query(`INSERT INTO votes ( address, message, signature ) VALUES ('${payload.addr}','${payload.msg}','${payload.sig}')`, function (err, result) {
-                            if (err) throw err;
+                        Promise.resolve(dbFunctions.pushVote(payload)).then(function (response) {
+                            res.status(200).send(response);
+                        }).catch((error) => {                                               // Run this if the retrieving functions returns an error
+                            console.log(error)
+                            res.status(404).send(error)
                         })
-
-                        res.end('ok');
                     });
                 } else {
                     throw "Please use a POST request"
                 }
             } catch (error) {
                 console.log(error)
-                res.end(error);
+                res.status(404).send(error);
             }
         });
 
