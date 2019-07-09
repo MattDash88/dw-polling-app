@@ -20,6 +20,7 @@ const app = next({ dev });
 const serialize = data => JSON.stringify({ data });
 
 var jwtFunctions = require('./server_components/jwt_functions');
+var dbFunctions = require('./server_components/db_functions');
 
 var payload = {};
 
@@ -61,28 +62,6 @@ app.prepare()
         });
 
         // Retrieve votes from database
-        server.get('/poll/view_votes2', function (req, res) {
-            try {
-                pool.query(`SELECT * FROM votes`, function (err, result) {
-                    if (err) throw err;
-                    var objs = []
-                    //console.log(result.rows)
-                    Object.values(result.rows).map((item) => {
-                        objs.push({
-                            address: item.address,
-                            message: item.message,
-                            signature: item.signature,
-                        })
-                    })
-                    res.end(serialize(objs));
-                })
-            } catch (error) {
-                console.log(error)
-                res.end(error);
-            }
-        })
-
-        // Retrieve votes from database
         server.get('/poll/view_votes', function (req, res) {
             let token = req.headers['x-access-token'] || req.headers['authorization'];      // Express headers are auto converted to lowercase            
             if (token) {
@@ -90,29 +69,18 @@ app.prepare()
                     token = token.slice(7, token.length);
                 }
                 var authorized = jwtFunctions.verify(token)
-                if (authorized == true) {
-                    try {
-                        pool.query(`SELECT * FROM votes`, function (err, result) {              // Fetch votes from database
-                            if (err) throw err;
-                            var objs = []
-                            Object.values(result.rows).map((item) => {
-                                objs.push({
-                                    address: item.address,
-                                    message: item.message,
-                                    signature: item.signature,
-                                })
-                            })
-                            res.end(serialize(objs));
-                        })
-                    } catch (error) {
+                if (authorized == true) {                                                   // Try retrieving data if the user is authorized is provided
+                    Promise.resolve(dbFunctions.retrieveVotes()).then(function (voteData) {
+                        res.status(200).end(serialize(voteData));
+                    }).catch((error) => {                                               // Run this if the retrieving functions returns an error
                         console.log(error)
-                        res.end(serialize({message: 'Token is valid, but something went wrong fetching the votes'}));
-                    }
-                } else {
-                    res.end(serialize({message: 'Please provide a valid token'}));
+                        res.status(404).send('Token is valid but something went wrong retrieving the data')
+                    })
+                } else {                                                                    // Message if the retriever is not authorized
+                    res.status(403).send('message: Please provide a valid token');
                 }
-            } else {
-                res.end(serialize({message: 'Auth token not provided'}));
+            } else {                                                                        // If no auth token was provided at all
+                res.status(403).send('message: Auth token not provided');
             }
         })
 

@@ -9,26 +9,22 @@ const pool = new Pool({
 });
 
 var retrieveVotes = function retrieveFunction() {
-    try {
-        votes = pool.query(`SELECT * FROM votes`, function (err, result) {
-            if (err) throw err;
-            var objs = []
-            //console.log(result.rows)
-            Object.values(result.rows).map((item) => {
-                objs.push({
-                    address: item.address,
-                    message: item.message,
-                    signature: item.signature,
+    return new Promise((resolve, reject) => {
+        pool.query(`SELECT * FROM votes`, function (err, results) {
+            if (err) reject(err);
+            else {
+                var objs = [];
+                Object.values(results.rows).map((item) => {
+                    objs.push({
+                        address: item.address,
+                        message: item.message,
+                        signature: item.signature,
+                    });
                 })
-            })
-            //console.log(objs)
-            return objs            
+                resolve(objs);
+            }
         })
-        console.log(votes)
-    } catch (error) {
-        console.log(error)
-        return 'test';
-    }
+    })
 }
 
 module.exports = {
