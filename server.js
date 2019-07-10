@@ -15,14 +15,6 @@ var errorFunctions = require('./server_components/error_handling');
 
 var payload = {};
 
-var signOptions = {
-    issuer: "dash_watch",
-    subject: "poll1",
-    audience: "dash-watch",
-    expiresIn: "30d",    // 30 days validity  
-    algorithm: "RS256",
-};
-
 app.prepare()
     .then(() => {
         const server = express()
@@ -40,7 +32,6 @@ app.prepare()
                         Promise.resolve(dbFunctions.pushVote(payload, database)).then(function (response) {
                             res.status(200).send(response);
                         }).catch((error) => {                                               // Run this if the retrieving functions returns an error
-                            console.log(error)
                             res.status(404).send(error)
                         })
                     });
@@ -48,7 +39,6 @@ app.prepare()
                     throw "Please use a POST request"
                 }
             } catch (error) {
-                console.log(error)
                 res.status(404).send(error);
             }
         });
@@ -66,7 +56,6 @@ app.prepare()
                     Promise.resolve(dbFunctions.retrieveVotes(database)).then(function (voteData) {
                         res.status(200).end(serialize(voteData));
                     }).catch((error) => {                                               // Run this if the retrieving functions returns an error
-                        console.log(error)
                         res.status(404).send('Token is valid but something went wrong retrieving the data')
                     })
                 } else {  
