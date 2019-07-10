@@ -15,9 +15,9 @@ const pool = new Pool({
   },
 });
 
-var pushVote = function pushFunction(payload) {
+var pushVote = function pushFunction(payload, database) {
     return new Promise((resolve, reject) => {
-        pool.query(`INSERT INTO votes ( address, message, signature ) 
+        pool.query(`INSERT INTO ${database} ( address, message, signature ) 
                     VALUES ('${payload.addr}','${payload.msg}','${payload.sig}')`, 
                     function (err, results) {
             if (err) reject(err);
@@ -28,10 +28,10 @@ var pushVote = function pushFunction(payload) {
     })
 }
 
-var retrieveVotes = function retrieveFunction() {
+var retrieveVotes = function retrieveFunction(database) {
     return new Promise((resolve, reject) => {
         pool.query(`SELECT * 
-                    FROM votes`, 
+                    FROM ${database}`, 
                     function (err, results) {
             if (err) reject(err);
             else {

@@ -3,14 +3,20 @@ const jwt = require('jsonwebtoken');
 
 var publicKEY = fs.readFileSync('./public.key', 'utf8');
 
-var verify = function verifyFunction(token) {
+var verify = function verifyFunction(token, database) {
+    var verifyOptions = {
+        iss:  'dash-watch',
+        aud:  'dash-watch',
+        subject:  database,        
+        algorithm:  ["RS256"]
+    };
      try {
-        jwt.verify(token, publicKEY, function(err, decoded) {
+        jwt.verify(token, publicKEY, verifyOptions, function(err, decoded) {
             if (err) throw err;         
         })     
-       return true;   
+       return 'success';   
      } catch (err) {
-       return false;
+       return err.message;
     }
 }
 
