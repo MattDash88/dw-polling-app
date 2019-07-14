@@ -2,6 +2,7 @@
 require('dotenv').config()    // Access .env variables
 const express = require('express');
 const next = require('next');
+const dashcore = require('@dashevo/dashcore-lib');
 
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT;
@@ -19,6 +20,28 @@ app.prepare()
     .then(() => {
         const server = express()
         // Submit the vote
+        server.post('/poll/vote2', function (req, res) {
+            try {
+                if (req.method === 'POST') {
+                    let body = '';
+                    req.on('data', chunk => {
+                        body += chunk.toString();
+                    });
+                    req.on('end', () => {
+                        var payload = JSON.parse(body)
+                        console.log(payload.msg)
+                        var message = dashcore.Message(payload.msg);
+                        const isValidSig = message.verify(payload.addr, payload.sig);
+                        console.log(isValidSig)
+                    });
+                } else {
+                    throw "Please use a POST request"
+                }
+            } catch (error) {
+                res.status(404).send(error);
+            }
+        });
+
         server.post('/poll/vote', function (req, res) {
             try {
                 if (req.method === 'POST') {
@@ -28,12 +51,31 @@ app.prepare()
                     });
                     req.on('end', () => {
                         var payload = JSON.parse(body)
-                        var database = 'votes'
-                        Promise.resolve(dbFunctions.pushVote(payload, database)).then(function (response) {
-                            res.status(200).send(response);
-                        }).catch((error) => {                                               // Run this if the retrieving functions returns an error
-                            res.status(404).send(error)
-                        })
+                        // All three attributes must be provided
+                        if (typeof payload.db == 'undefined' || typeof payload.addr == 'undefined' || typeof payload.msg == 'undefined' || typeof payload.sig == 'undefined') {
+                            var returnObject = errorFunctions.submitVoteErrors('form incomplete')
+                            res.status(400).send(returnObject);
+                        } else {
+                            const { db, msg, addr, sig, } = payload
+                            var message = dashcore.Message(msg);        // Convert message to the right syntax
+                            const isValidAddress = dashcore.Address.isValid(addr, 'mainnet');
+                            const isValidSig = errorFunctions.verifySig(message, addr, sig)
+                            if (!isValidAddress) {
+                                var returnObject = errorFunctions.submitVoteErrors('invalid address')
+                                res.status(400).send(returnObject);
+                            } else if (!isValidSig) { 
+                                var returnObject = errorFunctions.submitVoteErrors('invalid signature')
+                                res.status(400).send(returnObject);
+                            } else {                                
+                                Promise.resolve(dbFunctions.pushVote(db, msg, addr, sig)).then(function (response) {
+                                    var returnString = `Vote submitted ${msg} using address ${addr}`;
+                                    res.status(200).send(returnString);
+                                }).catch((error) => {                                               // Run this if the retrieving functions returns an error
+                                    var returnObject = errorFunctions.submitVoteErrors('submission error')
+                                    res.status(500).send(returnObject);
+                                })
+                            }
+                        }
                     });
                 } else {
                     throw "Please use a POST request"
@@ -46,7 +88,7 @@ app.prepare()
         // Retrieve votes from database
         server.get('/poll/view_votes', function (req, res) {
             let token = req.headers['x-access-token'] || req.headers['authorization'];      // Express headers are auto converted to lowercase            
-            let database = req.query.db
+            let database = req.query.db                                                     // A query for the database that is accessed is required 
             if (token && database) {
                 if (token.startsWith('Bearer ')) {                                          // Remove Bearer from string if necessary             
                     token = token.slice(7, token.length);
@@ -55,17 +97,17 @@ app.prepare()
                 if (authorization == 'success') {                                                   // Try retrieving data if the user is authorized is provided
                     Promise.resolve(dbFunctions.retrieveVotes(database)).then(function (voteData) {
                         res.status(200).end(serialize(voteData));
-                    }).catch((error) => {                                               // Run this if the retrieving functions returns an error
+                    }).catch((error) => {                                                           // Run this if the retrieving functions returns an error
                         res.status(404).send('Token is valid but something went wrong retrieving the data')
                     })
                 } else {  
-                    var errorMessage = errorFunctions.authenticationErrors(authorization)                                                                  // Message if the retriever is not authorized
-                    res.status(403).send(`message: ${errorMessage}`);
+                    var errorMessage = errorFunctions.authenticationErrors(authorization)               // Message if the retriever is not authorized
+                    res.status(403).send(`${errorMessage}`);
                 }
             } else if (!token) {                                                                        // If no auth token was provided at all
-                res.status(403).send('message: Auth token not provided');
-            } else if (!database) {                                                                        // If no auth token was provided at all
-                res.status(403).send('message: Please provide a database you want to access');
+                res.status(403).send('Auth token not provided');
+            } else if (!database) {                                                                     // If the user did not specify a database
+                res.status(403).send('Please specify which database you want to access by adding ?db=DATABASE_NAME to the URL');
             }
         })
 

@@ -15,14 +15,14 @@ const pool = new Pool({
   },
 });
 
-var pushVote = function pushFunction(payload, database) {
+var pushVote = function pushFunction(db, msg, addr, sig) {
     return new Promise((resolve, reject) => {
-        pool.query(`INSERT INTO ${database} ( address, message, signature ) 
-                    VALUES ('${payload.addr}','${payload.msg}','${payload.sig}')`, 
+        pool.query(`INSERT INTO ${db} ( address, message, signature ) 
+                    VALUES ('${addr}','${msg}','${sig}')`, 
                     function (err, results) {
             if (err) reject(err);
             else {
-                resolve('ok');
+                resolve('success');
             }
         })
     })
@@ -36,8 +36,15 @@ var retrieveVotes = function retrieveFunction(database) {
             if (err) reject(err);
             else {
                 var objs = [];
+
+                // Get timestamp
+                var today = new Date()
+                var date = today.getUTCFullYear()+'-'+(today.getUTCMonth()+1)+'-'+today.getUTCDate();
+                var time = today.getUTCHours() + ":" + today.getUTCMinutes() + ":" + today.getUTCSeconds();
+                var dateTime = date+' '+time;
                 Object.values(results.rows).map((item) => {
                     objs.push({
+                        db: 'votes',
                         address: item.address,
                         message: item.message,
                         signature: item.signature,
