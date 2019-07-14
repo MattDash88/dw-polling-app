@@ -17,7 +17,7 @@ var submitVoteErrors = function voteErrorFunction(error) {
     } else if (error == 'invalid address') {
         errorMessage = 'Not a valid Dash address';
     } else if (error == 'invalid signature') {
-        errorMessage = 'Signature invalid';
+        errorMessage = 'Invalid signature';
     } else if (error == 'submission error') {
         errorMessage = 'Encountered error submitting the vote';
     } else {

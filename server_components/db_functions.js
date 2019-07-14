@@ -15,7 +15,8 @@ const pool = new Pool({
   },
 });
 
-var pushVote = function pushFunction(db, msg, addr, sig) {
+// Function to submit a vote into the database
+var submitVote = function submitFunction(db, msg, addr, sig) {
     return new Promise((resolve, reject) => {
         pool.query(`INSERT INTO ${db} ( address, message, signature ) 
                     VALUES ('${addr}','${msg}','${sig}')`, 
@@ -28,6 +29,7 @@ var pushVote = function pushFunction(db, msg, addr, sig) {
     })
 }
 
+// Function to retrieve all votes from database
 var retrieveVotes = function retrieveFunction(database) {
     return new Promise((resolve, reject) => {
         pool.query(`SELECT * 
@@ -36,12 +38,8 @@ var retrieveVotes = function retrieveFunction(database) {
             if (err) reject(err);
             else {
                 var objs = [];
-
                 // Get timestamp
-                var today = new Date()
-                var date = today.getUTCFullYear()+'-'+(today.getUTCMonth()+1)+'-'+today.getUTCDate();
-                var time = today.getUTCHours() + ":" + today.getUTCMinutes() + ":" + today.getUTCSeconds();
-                var dateTime = date+' '+time;
+                var timestamp = new Date().toISOString()
                 Object.values(results.rows).map((item) => {
                     objs.push({
                         db: 'votes',
@@ -56,7 +54,30 @@ var retrieveVotes = function retrieveFunction(database) {
     })
 }
 
+var healthCheck = function healthCheckFunction() {
+    return new Promise((resolve, reject) => {
+        pool.query(`SELECT * 
+                    FROM dummy`, 
+                    function (err, results) {
+            if (err) reject('server error');
+            else {
+                var objs = [];
+                Object.values(results.rows).map((item) => {
+                    objs.push({
+                        db: 'votes',
+                        address: item.address,
+                        message: item.message,
+                        signature: item.signature,
+                    });
+                })
+                resolve('ok');
+            }
+        })
+    })
+}
+
 module.exports = {
     retrieveVotes,
-    pushVote,
+    submitVote,
+    healthCheck,
 }

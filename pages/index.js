@@ -10,6 +10,7 @@ import {
     Divider,
     TextArea,
     Input,
+    Message,
     Dimmer,
 } from 'semantic-ui-react';
 
@@ -99,14 +100,27 @@ class Poll extends React.Component {
                 />
 
                 {
-                    this.state.responseMessage !== '' ? (
+                    this.state.responseStatus == 'Success' && (
                         <Container as={Segment}>
-                            Status: {this.state.responseStatus}<br></br>
-                            Message: {this.state.responseMessage}
+                            <Message
+                            success
+                            header={this.state.responseStatus}
+                            content={this.state.responseMessage}
+                            />
                         </Container>
-                    ) : (
-                            null
-                        )
+                    ) 
+                }
+
+                {
+                   this.state.responseStatus == 'Error' && (
+                        <Container as={Segment}>
+                            <Message
+                            error
+                            header={this.state.responseStatus}
+                            content={this.state.responseMessage}
+                            />
+                        </Container>
+                    ) 
                 }
             </div>
         )

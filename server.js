@@ -20,28 +20,6 @@ app.prepare()
     .then(() => {
         const server = express()
         // Submit the vote
-        server.post('/poll/vote2', function (req, res) {
-            try {
-                if (req.method === 'POST') {
-                    let body = '';
-                    req.on('data', chunk => {
-                        body += chunk.toString();
-                    });
-                    req.on('end', () => {
-                        var payload = JSON.parse(body)
-                        console.log(payload.msg)
-                        var message = dashcore.Message(payload.msg);
-                        const isValidSig = message.verify(payload.addr, payload.sig);
-                        console.log(isValidSig)
-                    });
-                } else {
-                    throw "Please use a POST request"
-                }
-            } catch (error) {
-                res.status(404).send(error);
-            }
-        });
-
         server.post('/poll/vote', function (req, res) {
             try {
                 if (req.method === 'POST') {
@@ -67,8 +45,8 @@ app.prepare()
                                 var returnObject = errorFunctions.submitVoteErrors('invalid signature')
                                 res.status(400).send(returnObject);
                             } else {                                
-                                Promise.resolve(dbFunctions.pushVote(db, msg, addr, sig)).then(function (response) {
-                                    var returnString = `Vote submitted ${msg} using address ${addr}`;
+                                Promise.resolve(dbFunctions.submitVote(db, msg, addr, sig)).then(function (response) {
+                                    var returnString = `Vote recorded - ${msg} using address ${addr}`;
                                     res.status(200).send(returnString);
                                 }).catch((error) => {                                               // Run this if the retrieving functions returns an error
                                     var returnObject = errorFunctions.submitVoteErrors('submission error')
@@ -98,7 +76,7 @@ app.prepare()
                     Promise.resolve(dbFunctions.retrieveVotes(database)).then(function (voteData) {
                         res.status(200).end(serialize(voteData));
                     }).catch((error) => {                                                           // Run this if the retrieving functions returns an error
-                        res.status(404).send('Token is valid but something went wrong retrieving the data')
+                        res.status(500).send('Token is valid but something went wrong retrieving the data')
                     })
                 } else {  
                     var errorMessage = errorFunctions.authenticationErrors(authorization)               // Message if the retriever is not authorized
@@ -109,6 +87,16 @@ app.prepare()
             } else if (!database) {                                                                     // If the user did not specify a database
                 res.status(403).send('Please specify which database you want to access by adding ?db=DATABASE_NAME to the URL');
             }
+        })
+
+        // Retrieve votes from database
+        server.get('/poll/health', function (req, res) {
+            // Try retrieving data if the user is authorized is provided
+                Promise.resolve(dbFunctions.retrieveVotes(database)).then(function (voteData) {
+                    res.status(403).send('server ok');
+                }).catch((error) => {                                                           // Run this if the retrieving functions returns an error
+                    res.status(500).send('server error')
+                })
         })
 
         // Routing to main page

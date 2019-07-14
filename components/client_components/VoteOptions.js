@@ -78,7 +78,7 @@ class VoteOptions extends React.Component {
                 </Form.Field>
                 <Divider hidden />
                 <Button onClick={this.onButtonPress} className="ui primary">
-                    Done
+                    Continue
                 </Button>
                 <Dimmer active={this.props.shouldDim}>
                     Option Selected
