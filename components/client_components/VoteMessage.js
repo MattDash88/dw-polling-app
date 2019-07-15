@@ -68,7 +68,7 @@ class VoteMessage extends React.Component {
         const message = this.props.payload;
         this.props.clearMessages();
         if (!this.validateFieldLengths()) {
-            var errorMessage = 'Address or Signature fields cannot be empty'
+            var errorMessage = 'Address and/or Signature fields cannot be empty'
             return this.handleResponse('Error', errorMessage)
         } else {
             // TODO: handle network errors / what if promise never returned?
@@ -107,7 +107,7 @@ class VoteMessage extends React.Component {
                 <Form onSubmit={this.onFormSubmit}>
                     <Input
                         fluid
-                        placeholder="Masternode Voting Key Address"
+                        placeholder="Masternode Voting Address Key"
                         value={this.state.address}
                         onChange={this.onAddressChange}
                     />

@@ -58,6 +58,7 @@ class Poll extends React.Component {
                 break;
         }
 
+        this.clearMessages();
         this.setState({
             voteMessageVisible,
             activeStep: stepNumber,
@@ -101,25 +102,21 @@ class Poll extends React.Component {
 
                 {
                     this.state.responseStatus == 'Success' && (
-                        <Container as={Segment}>
                             <Message
                             success
                             header={this.state.responseStatus}
                             content={this.state.responseMessage}
                             />
-                        </Container>
                     ) 
                 }
 
                 {
                    this.state.responseStatus == 'Error' && (
-                        <Container as={Segment}>
                             <Message
                             error
                             header={this.state.responseStatus}
                             content={this.state.responseMessage}
                             />
-                        </Container>
                     ) 
                 }
             </div>
