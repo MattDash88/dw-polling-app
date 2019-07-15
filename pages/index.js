@@ -77,8 +77,7 @@ class Poll extends React.Component {
             responseStatus: '',
             responseMessage: '',
         });
-    };
-
+    };    
     render() {
         return (
             <div className="ui container" style={{
@@ -102,21 +101,25 @@ class Poll extends React.Component {
 
                 {
                     this.state.responseStatus == 'Success' && (
+                            <Container>
                             <Message
                             success
                             header={this.state.responseStatus}
                             content={this.state.responseMessage}
                             />
+                            </Container>
                     ) 
                 }
 
                 {
                    this.state.responseStatus == 'Error' && (
+                    <Container>
                             <Message
                             error
                             header={this.state.responseStatus}
                             content={this.state.responseMessage}
                             />
+                            </Container>
                     ) 
                 }
             </div>

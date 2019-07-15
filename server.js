@@ -2,6 +2,7 @@
 require('dotenv').config()    // Access .env variables
 const express = require('express');
 const next = require('next');
+const { join } = require('path')
 const dashcore = require('@dashevo/dashcore-lib');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -20,6 +21,7 @@ app.prepare()
     .then(() => {
         const server = express()
         // Submit the vote
+        
         server.post('/poll/vote', function (req, res) {
             try {
                 if (req.method === 'POST') {
@@ -92,8 +94,8 @@ app.prepare()
         // Retrieve votes from database
         server.get('/poll/health', function (req, res) {
             // Try retrieving data if the user is authorized is provided
-                Promise.resolve(dbFunctions.retrieveVotes(database)).then(function (voteData) {
-                    res.status(403).send('server ok');
+                Promise.resolve(dbFunctions.healthCheck()).then(function (voteData) {
+                    res.status(200).send('server ok');
                 }).catch((error) => {                                                           // Run this if the retrieving functions returns an error
                     res.status(500).send('server error')
                 })

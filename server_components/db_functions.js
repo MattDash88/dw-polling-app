@@ -18,8 +18,10 @@ const pool = new Pool({
 // Function to submit a vote into the database
 var submitVote = function submitFunction(db, msg, addr, sig) {
     return new Promise((resolve, reject) => {
-        pool.query(`INSERT INTO ${db} ( address, message, signature ) 
-                    VALUES ('${addr}','${msg}','${sig}')`, 
+        // Get timestamp   
+        var timestamp = new Date().toISOString()
+        pool.query(`INSERT INTO ${db} ( timestamp, address, message, signature ) 
+                    VALUES ('${timestamp}',' ${addr}','${msg}','${sig}')`, 
                     function (err, results) {
             if (err) reject(err);
             else {
@@ -37,12 +39,10 @@ var retrieveVotes = function retrieveFunction(database) {
                     function (err, results) {
             if (err) reject(err);
             else {
-                var objs = [];
-                // Get timestamp
-                var timestamp = new Date().toISOString()
+                var objs = [];                            
                 Object.values(results.rows).map((item) => {
                     objs.push({
-                        db: 'votes',
+                        timestamp: item.timestamp,
                         address: item.address,
                         message: item.message,
                         signature: item.signature,
@@ -61,15 +61,6 @@ var healthCheck = function healthCheckFunction() {
                     function (err, results) {
             if (err) reject('server error');
             else {
-                var objs = [];
-                Object.values(results.rows).map((item) => {
-                    objs.push({
-                        db: 'votes',
-                        address: item.address,
-                        message: item.message,
-                        signature: item.signature,
-                    });
-                })
                 resolve('ok');
             }
         })

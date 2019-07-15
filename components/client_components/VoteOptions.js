@@ -44,55 +44,56 @@ class VoteOptions extends React.Component {
 
     render() {
         return (
-            <Dimmer.Dimmable as={Segment} dimmed={this.props.shouldDim}>
-                Would you support a treasury proposal to buy a Lambo for all Dash Watch Report Team members?
+            <Container>
+                <Dimmer.Dimmable as={Segment} dimmed={this.props.shouldDim}>
+                    Would you support a treasury proposal to buy a car for all Dash Watch Report Team members?
                 <Form.Field>
-                    <Checkbox
-                        radio
-                        label='Yes'
-                        name='checkboxRadioGroup'
-                        value='Absolutely'
-                        checked={this.state.value === 'Absolutely'}
-                        onChange={this.handleChange}
-                    />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox
-                        radio
-                        label='Yes'
-                        name='checkboxRadioGroup'
-                        value='Totally'
-                        checked={this.state.value === 'Totally'}
-                        onChange={this.handleChange}
-                    />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox
-                        radio
-                        label='No'
-                        name='checkboxRadioGroup'
-                        value='No'
-                        checked={this.state.value === 'No'}
-                        onChange={this.handleChange}
-                    />
-                </Form.Field>
-                <Divider hidden />
-                <Button onClick={this.onButtonPress} className="ui primary">
-                    Continue
-                </Button>
-                <Dimmer active={this.props.shouldDim}>
-                    Option Selected
-            <Divider hidden />
-                    <Button
-                        inverted
-                        value="Reset Selections"
-                        onClick={this.onResetButtonClick}
-                    >
-                        Reset Selections
-          </Button>
+                        <Checkbox
+                            radio
+                            label='No'
+                            name='checkboxRadioGroup'
+                            value='no'
+                            checked={this.state.value === 'no'}
+                            onChange={this.handleChange}
+                        />
+                    </Form.Field>
+                    <Form.Field>
+                        <Checkbox
+                            radio
+                            label='Yes'
+                            name='checkboxRadioGroup'
+                            value='yes'
+                            checked={this.state.value === 'yes'}
+                            onChange={this.handleChange}
+                        />
+                    </Form.Field>
+                    <Form.Field>
+                        <Checkbox
+                            radio
+                            label='Would like to, but can only afford a Tata Nano'
+                            name='checkboxRadioGroup'
+                            value='tata-nano-option'
+                            checked={this.state.value === 'tata-nano-option'}
+                            onChange={this.handleChange}
+                        />
+                    </Form.Field>
                     <Divider hidden />
-                </Dimmer>
-            </Dimmer.Dimmable>
+                    <Button onClick={this.onButtonPress} className="ui primary">
+                        Continue
+                </Button>
+                    <Dimmer active={this.props.shouldDim}>
+                        Option Selected
+            <Divider hidden />
+                        <Button
+                            inverted
+                            value="Reset Selections"
+                            onClick={this.onResetButtonClick}
+                        >
+                            Reset Selections
+                        </Button>
+                    </Dimmer>
+                </Dimmer.Dimmable>
+            </Container>
         )
     }
 }

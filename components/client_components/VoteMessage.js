@@ -73,7 +73,7 @@ class VoteMessage extends React.Component {
         } else {
             // TODO: handle network errors / what if promise never returned?
             axios.post('/poll/vote', {
-                db: 'votes',
+                db: 'lambovote',
                 addr: address,
                 msg: message,
                 sig: signature,
