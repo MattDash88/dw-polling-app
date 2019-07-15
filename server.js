@@ -15,8 +15,6 @@ var jwtFunctions = require('./server_components/jwt_functions');
 var dbFunctions = require('./server_components/db_functions');
 var errorFunctions = require('./server_components/error_handling');
 
-var payload = {};
-
 app.prepare()
     .then(() => {
         const server = express()

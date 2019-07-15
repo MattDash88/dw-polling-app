@@ -46,7 +46,7 @@ class VoteOptions extends React.Component {
         return (
             <Container>
                 <Dimmer.Dimmable as={Segment} dimmed={this.props.shouldDim}>
-                    Would you support a treasury proposal to buy a car for all Dash Watch Report Team members?
+                    Would you support a treasury proposal to buy a lambo for all Dash Watch Report Team members?
                 <Form.Field>
                         <Checkbox
                             radio
@@ -70,7 +70,7 @@ class VoteOptions extends React.Component {
                     <Form.Field>
                         <Checkbox
                             radio
-                            label='Would like to, but can only afford a Tata Nano'
+                            label='Would like to, but the treasury can only afford a Tata Nano'
                             name='checkboxRadioGroup'
                             value='tata-nano-option'
                             checked={this.state.value === 'tata-nano-option'}
