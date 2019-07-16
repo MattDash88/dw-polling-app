@@ -2,10 +2,6 @@ service: dw-polling
 runtime: nodejs10
 env: standard
 
-# update with Redis instance network name
-network:
-    name: default
-
 instance_class: F1
 automatic_scaling:
   target_cpu_utilization: 0.6
