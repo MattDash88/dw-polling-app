@@ -18,3 +18,7 @@ dispatch:
 # All other traffic routed to dash-watch-beta app
   - url: "dashwatchbeta.org/*"
     service: dash-watch-beta
+
+# All other traffic routed to dash-watch-beta app
+  - url: "beta.dashwatch.org/poll/*"
+    service: dw-polling

@@ -21,7 +21,7 @@ class VoteMessage extends React.Component {
         this.state = {
             address: '',
             signature: '',
-            database: 'votes'
+            database: 'consensuspoll1'
         }
 
         // Bind functions used in class
@@ -73,7 +73,7 @@ class VoteMessage extends React.Component {
         } else {
             // TODO: handle network errors / what if promise never returned?
             axios.post('/poll/vote', {
-                db: 'lambovote',
+                db: this.state.database,
                 addr: address,
                 msg: message,
                 sig: signature,
@@ -93,7 +93,7 @@ class VoteMessage extends React.Component {
 
         return (
             <Container as={Segment}>
-                Would you support a treasury proposal to buy a Lambo for all Dash Watch Report Team members?
+                <h5>How should consensus vote results be displayed during the voting process?</h5>
                  <Form>
                     <TextArea disabled value={this.props.payload} />
                 </Form>
@@ -107,7 +107,7 @@ class VoteMessage extends React.Component {
                 <Form onSubmit={this.onFormSubmit}>
                     <Input
                         fluid
-                        placeholder="Masternode Voting Address Key"
+                        placeholder="Masternode Voting Address"
                         value={this.state.address}
                         onChange={this.onAddressChange}
                     />

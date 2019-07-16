@@ -92,7 +92,7 @@ class Poll extends React.Component {
                 />
 
                 <VoteMessage
-                    label="2. Sign Message Using MN Voting Address Key"
+                    label="2. Sign Message Using MN Voting Address"
                     payload={this.state.payload}
                     handleResponse={this.handleResponse}
                     clearMessages={this.clearMessages}

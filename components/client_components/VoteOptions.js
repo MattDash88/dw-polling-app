@@ -17,7 +17,7 @@ class VoteOptions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: 'dw2019_LamboVote-',
+            message: 'dw2019_consensuspoll1-',
             value: '',
         }
 
@@ -29,7 +29,7 @@ class VoteOptions extends React.Component {
     handleChange = (e, { value }) => {
         this.setState({
             value: value,
-            message: `dw2019_LamboVote-${value}`,
+            message: `dw2019_consensuspoll1-${value}`,
         })
     }
 
@@ -44,49 +44,58 @@ class VoteOptions extends React.Component {
 
     render() {
         return (
+            <main>
             <Container>
                 <Dimmer.Dimmable as={Segment} dimmed={this.props.shouldDim}>
-                    Would you support a treasury proposal to buy a car for all Dash Watch Report Team members?
+                <h3>Dash Watch Consensus Poll 1</h3>
+                <h5>Options</h5>
+                    <li>Fully Public – real time results available with fully transparent vote data, including: voting public key, vote decision, and vote time.  </li>
+                    <li>Semi-Private – semi-live* results available with generated voter IDs to obscure voting public key. Vote decision and vote time are still available </li>
+                    <li>Live-Private – semi-live* results that only shows the total votes for each voting option and Masternode participation percentages. </li>
+                    <li>Delayed-Private – semi-live* results that shows only the Masternode participation percentages. Results are not released until after the voting has closed.</li><br></br>
+                    <p>*Semi-live is defined as 12-36 hours lag time in results due to manual calculation of the Masternode list. This may be solved in future iterations once/if the Insights API is fixed. </p>
+                    <Divider />
+                    <h5> How should consensus vote results be displayed during the voting process?</h5>
                 <Form.Field>
                         <Checkbox
                             radio
-                            label='No'
+                            label='Fully Public'
                             name='checkboxRadioGroup'
-                            value='no'
-                            checked={this.state.value === 'no'}
+                            value='fully-public'
+                            checked={this.state.value === 'fully-public'}
                             onChange={this.handleChange}
                         />
                     </Form.Field>
                     <Form.Field>
                         <Checkbox
                             radio
-                            label='Yes, a Tata Nano'
+                            label='Semi Private'
                             name='checkboxRadioGroup'
-                            value='tata-nano'
-                            checked={this.state.value === 'tata-nano'}
+                            value='semi-private'
+                            checked={this.state.value === 'semi-private'}
                             onChange={this.handleChange}
                         />
                     </Form.Field>
                     <Form.Field>
                         <Checkbox
                             radio
-                            label='Yes, a Lambo'
+                            label='Live Private'
                             name='checkboxRadioGroup'
-                            value='lambo'
-                            checked={this.state.value === 'lambo'}
+                            value='live-private'
+                            checked={this.state.value === 'live-private'}
                             onChange={this.handleChange}
                         />
                     </Form.Field>
                     <Form.Field>
                         <Checkbox
                             radio
-                            label='Yes, Starship'
+                            label='Delayed-Private'
                             name='checkboxRadioGroup'
-                            value='starship'
-                            checked={this.state.value === 'starship'}
+                            value='delayed-private'
+                            checked={this.state.value === 'delayed-private'}
                             onChange={this.handleChange}
                         />
-                    </Form.Field>
+                    </Form.Field>                    
                     <Divider hidden />
                     <Button onClick={this.onButtonPress} className="ui primary">
                         Continue
@@ -104,6 +113,7 @@ class VoteOptions extends React.Component {
                     </Dimmer>
                 </Dimmer.Dimmable>
             </Container>
+            </main>
         )
     }
 }
