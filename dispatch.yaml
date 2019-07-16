@@ -8,16 +8,16 @@ dispatch:
     service: dw-polling
 
 # All other traffic routed to dash-watch-beta app
-  - url: "beta.dashwatch.org/poll/*"
-    service: dw-polling
-
-# All other traffic routed to dash-watch-beta app
   - url: "beta.dashwatch.org/*"
     service: dash-watch-beta
 
 # All other traffic routed to dash-watch-beta app
   - url: "*.dashwatchbeta.org/*"
     service: dash-watch-beta
+
+# All other traffic routed to dash-watch-beta app
+  - url: "poll.dashwatch.org/poll/*"
+    service: dw-polling
 
 # All other traffic routed to dash-watch-beta app
   - url: "dashwatchbeta.org/*"
