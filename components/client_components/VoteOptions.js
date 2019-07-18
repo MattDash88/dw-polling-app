@@ -88,7 +88,6 @@ class VoteOptions extends React.Component {
                             <Form.Field>
                                 <Checkbox
                                     radio
-                                    fluid
                                     label='Live Private'
                                     name='checkboxRadioGroup'
                                     value='live-private'
@@ -99,7 +98,6 @@ class VoteOptions extends React.Component {
                             <Form.Field>
                                 <Checkbox
                                     radio
-                                    fluid
                                     label='Delayed-Private'
                                     name='checkboxRadioGroup'
                                     value='delayed-private'
