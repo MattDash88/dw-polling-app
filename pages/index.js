@@ -26,6 +26,7 @@ class Poll extends React.Component {
             value: '',
             responseStatus: '',
             responseMessage: '',
+            showVotingWarning: true,
             payload: '',
             voteMessageVisible: false,
             activeStep: 1
@@ -69,6 +70,7 @@ class Poll extends React.Component {
         this.setState({
             responseStatus: responseStatus,
             responseMessage: responseMessage,
+            showVotingWarning: false,
         });
     };
 
@@ -76,6 +78,7 @@ class Poll extends React.Component {
         this.setState({
             responseStatus: '',
             responseMessage: '',
+            showVotingWarning: true,
         });
     };    
     render() {
@@ -97,10 +100,11 @@ class Poll extends React.Component {
                     handleResponse={this.handleResponse}
                     clearMessages={this.clearMessages}
                     visible={this.state.voteMessageVisible}
+                    showVotingWarning={this.state.showVotingWarning}
                 />
 
                 {
-                    this.state.responseStatus == 'Success' && (
+                    this.state.responseStatus == 'Success' && 
                             <Container>
                             <Message
                             success
@@ -108,19 +112,17 @@ class Poll extends React.Component {
                             content={this.state.responseMessage}
                             />
                             </Container>
-                    ) 
                 }
 
                 {
-                   this.state.responseStatus == 'Error' && (
+                   this.state.responseStatus == 'Error' && 
                     <Container>
                             <Message
                             error
                             header={this.state.responseStatus}
                             content={this.state.responseMessage}
                             />
-                            </Container>
-                    ) 
+                    </Container>
                 }
             </div>
         )

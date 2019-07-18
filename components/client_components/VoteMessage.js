@@ -2,15 +2,15 @@ import React from 'react';
 import 'semantic-ui-react'
 import {
     Container,
-    Label,
     Form,
     Checkbox,
     Segment,
     Button,
     Divider,
     TextArea,
+    Message,
     Input,
-    Dimmer,
+    Icon,
 } from 'semantic-ui-react';
 import axios from 'axios';
 import copy from 'clipboard-copy';
@@ -90,7 +90,6 @@ class VoteMessage extends React.Component {
         if (!visible) {
             return null;
         }
-
         return (
             <Container as={Segment}>
                 <h5>How should consensus vote results be displayed during the voting process?</h5>
@@ -101,9 +100,7 @@ class VoteMessage extends React.Component {
                 <Button className="ui primary" onClick={this.copyToClipboard}>
                     Copy to Clipboard
                 </Button>
-
                 <Divider hidden />
-
                 <Form onSubmit={this.onFormSubmit}>
                     <Input
                         fluid
@@ -117,11 +114,14 @@ class VoteMessage extends React.Component {
                         value={this.state.signature}
                         onChange={this.onSignatureChange}
                     />
-                    <Divider hidden />
+                    <Divider hidden />                    
                     <Button className="ui primary" onClick={this.submitVote}>
                         Submit Vote
-                    </Button>
+                    </Button>                    
                 </Form>
+                {this.props.showVotingWarning && <Message compact warning>
+                    <Icon name='warning' />
+                        Only votes cast using the voting address of a Masternode will be counted.</Message>}
             </Container>
         )
     }
