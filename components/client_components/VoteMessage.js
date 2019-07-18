@@ -103,13 +103,11 @@ class VoteMessage extends React.Component {
                 <Divider hidden />
                 <Form onSubmit={this.onFormSubmit}>
                     <Input
-                        fluid
                         placeholder="Masternode Voting Address"
                         value={this.state.address}
                         onChange={this.onAddressChange}
                     />
                     <Input
-                        fluid
                         placeholder="Message Signature"
                         value={this.state.signature}
                         onChange={this.onSignatureChange}
