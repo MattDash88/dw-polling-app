@@ -101,10 +101,11 @@ class VoteMessage extends React.Component {
                     Copy to Clipboard
                 </Button>
                 <Divider hidden />
+                
                 <Form onSubmit={this.onFormSubmit}>
                     <Input
                         fluid
-                        placeholder="Masternode Voting Address"
+                        placeholder="Masternode voting (recommended), owner or collateral address"
                         value={this.state.address}
                         onChange={this.onAddressChange}
                     />
@@ -114,15 +115,19 @@ class VoteMessage extends React.Component {
                         value={this.state.signature}
                         onChange={this.onSignatureChange}
                     />
-                    <Divider hidden />                    
+                    <Divider hidden />         
+                            
                     <Button className="ui primary" onClick={this.submitVote}>
                         Submit Vote
                     </Button>                    
                 </Form>
-                {this.props.showVotingWarning && <Message compact warning>
+                {this.props.showVotingWarning && <Message compact>
+                        You may use the voting (recommended), owner or collateral address associated with your Masternode to vote. Only the most recent vote cast using an address associated with a Masternode will count.</Message>}
+                        <Message compact warning>
                     <Icon name='warning' />
-                        Only votes cast using the voting address of a Masternode will be counted.</Message>}
+                        Please only submit the Dash address and signature of your vote. We will NEVER ask for a private key.</Message>                       
             </Container>
+            
         )
     }
 }
