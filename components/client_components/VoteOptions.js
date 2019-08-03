@@ -9,6 +9,7 @@ import {
     Button,
     Divider,
     Input,
+    Icon,
     Message,
     Dimmer,
 } from 'semantic-ui-react';
@@ -111,7 +112,7 @@ class VoteOptions extends React.Component {
                             </Button>
                         </Form>
                         <Divider hidden />
-                        <Message compact info>The poll closes on 23.59 August 3, 2019 (UTC).</Message>
+                        <Message compact warning><Icon name='warning'/>The poll is closed. New votes will not be counted.</Message>
                         <Dimmer active={this.props.shouldDim}>
                             Option Selected
             <Divider hidden />
