@@ -18,8 +18,8 @@ class VoteOptions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: 'dw2019_consensuspoll1-',
-            value: '',
+            message: 'dif2019_poll1-',
+            value: new Set(),
         }
 
         // Bind functions used in class
@@ -27,10 +27,22 @@ class VoteOptions extends React.Component {
         this.onResetButtonClick = this.onResetButtonClick.bind(this);
     }
 
-    handleChange = (e, { value }) => {
+    messagePrefix = 'dif2019_poll1-';
+
+    handleChange = (e, { value, checked }) => {
+        let stateValue = this.state.value;
+
+        if (checked === true) {
+            stateValue.add(value);
+          } else {
+            stateValue.delete(value);
+        }
+
+        const message = this.messagePrefix + [...stateValue].join('|');
+
         this.setState({
-            value: value,
-            message: `dw2019_consensuspoll1-${value}`,
+            value: stateValue,
+            message: message,
         })
     }
 
@@ -53,56 +65,65 @@ class VoteOptions extends React.Component {
             <main>
                 <Container>
                     <Dimmer.Dimmable as={Segment} dimmed={this.props.shouldDim}>
-                        <h3>Dash Watch Consensus Poll 1</h3>
+                        <h3>MNO poll for the Dash Investment Foundation</h3>
                         <h5>Options</h5>
-                        <p><i>Context: How do MNOs want to handle consensus voting results?</i></p>
+                        <p><i>As mentioned in our recent update video, the DIF prefers to hedge its designated investment funds via a provisional split of 33.3% Dash, 33.3% USD, and 33.3% custodial gold. Our goal with this split is to protect against volatility and ensure a steady build up of reserves. We acknowledge, however, that the network may have a different preference. Therefore, please select one or more preferences below and we'll seek to implement the one with the highest overall approval rating, subject to availability and suitability of deposit/custodial facilities:</i></p>
                         <p>
-                            <li>Fully Public – real time results available with fully transparent vote data, including: voting public key, vote decision, and vote time.  </li>
-                            <li>Semi-Private – semi-live* results available with generated voter IDs to obscure voting public key. Vote decision and vote time are still available </li>
-                            <li>Live-Private – semi-live* results that only shows the total votes for each voting option and Masternode participation percentages. </li>
-                            <li>Delayed-Private – semi-live* results that shows only the Masternode participation percentages. Results are not released until after the voting has closed.</li>
+                            <li>100% Dash - Hold liquid reserves 100% in Dash</li>
+                            <li>50:50 Dash/Gold - Hedge liquid reserves 50:50 between Dash/Custodial Gold</li>
+                            <li>Equal Dash/USD/Custodial Gold - Hedge liquid reserves equally between Dash/USD/Custodial Gold</li>
+                            <li>Equal Dash/BTC/Custodial Gold - Hedge liquid reserves equally between Dash/BTC/Custodial Gold.</li>
+                            <li>100% USD - Hedge liquid reserves 100% into USD.</li>
+                            <li>50:50 Dash/USD - Hedge liquid reserves 50/50 Dash /USD.</li>
                         </p>
-                        <p>*Semi-live is defined as 12-36 hours lag time in results due to manual calculation of the Masternode list. This may be solved in future iterations once/if the Insights API is fixed.</p>
                         <Divider />
-                        <h5> How should consensus vote results be displayed during the voting process?</h5>
+                        <h5> How would you like the Dash Investment Foundation to hedge its designated investment funds?</h5>
                         <Form onSubmit={this.onFormSubmit}>
                             <Form.Field>
                                 <Checkbox
-                                    radio
-                                    label='Fully Public'
-                                    name='checkboxRadioGroup'
-                                    value='fully-public'
-                                    checked={this.state.value === 'fully-public'}
+                                    label='100% Dash'
+                                    value='100dash'
                                     onChange={this.handleChange}
                                 />
                             </Form.Field>
                             <Form.Field>
                                 <Checkbox
-                                    radio
-                                    label='Semi Private'
-                                    name='checkboxRadioGroup'
-                                    value='semi-private'
-                                    checked={this.state.value === 'semi-private'}
+                                    label='50:50 Dash/Gold'
+                                    value='dash-gold'
                                     onChange={this.handleChange}
                                 />
                             </Form.Field>
                             <Form.Field>
                                 <Checkbox
-                                    radio
-                                    label='Live Private'
-                                    name='checkboxRadioGroup'
-                                    value='live-private'
-                                    checked={this.state.value === 'live-private'}
+                                    label='Equal Dash/USD/Custodial Gold'
+                                    value='dash-usd-gold'
                                     onChange={this.handleChange}
                                 />
                             </Form.Field>
                             <Form.Field>
                                 <Checkbox
-                                    radio
-                                    label='Delayed-Private'
-                                    name='checkboxRadioGroup'
-                                    value='delayed-private'
-                                    checked={this.state.value === 'delayed-private'}
+                                    label='Equal Dash/BTC/Custodial Gold'
+                                    value='dash-btc-gold'
+                                    onChange={this.handleChange}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <Checkbox
+                                    //radio
+                                    label='100% USD'
+                                    //name='checkboxRadioGroup'
+                                    value='100usd'
+                                    //checked={this.state.value === '100-usd'}
+                                    onChange={this.handleChange}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <Checkbox
+                                    //radio
+                                    label='50:50 Dash/USD'
+                                    //name='checkboxRadioGroup'
+                                    value='dash-usd'
+                                    //checked={this.state.value === '50-50-dash-usd'}
                                     onChange={this.handleChange}
                                 />
                             </Form.Field>
@@ -112,7 +133,7 @@ class VoteOptions extends React.Component {
                             </Button>
                         </Form>
                         <Divider hidden />
-                        <Message compact warning><Icon name='warning'/>The poll is closed. New votes will not be counted.</Message>
+                        <Message compact warning><Icon name='warning'/>The poll will close on September 23rd, 2019 at 23.59 UTC.</Message>
                         <Dimmer active={this.props.shouldDim}>
                             Option Selected
             <Divider hidden />
@@ -121,7 +142,7 @@ class VoteOptions extends React.Component {
                                 value="Reset Selections"
                                 onClick={this.onResetButtonClick}
                             >
-                                Reset Selections
+                                Reset Selection
                         </Button>
                         </Dimmer>
                     </Dimmer.Dimmable>
