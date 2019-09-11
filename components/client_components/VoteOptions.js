@@ -66,8 +66,9 @@ class VoteOptions extends React.Component {
                 <Container>
                     <Dimmer.Dimmable as={Segment} dimmed={this.props.shouldDim}>
                         <h3>MNO poll for the Dash Investment Foundation</h3>
-                        <h5>Options</h5>
+                        <h5>How would you like the Dash Investment Foundation to hedge its designated investment funds?</h5>
                         <p><i>As mentioned in our recent update video, the DIF prefers to hedge its designated investment funds via a provisional split of 33.3% Dash, 33.3% USD, and 33.3% custodial gold. Our goal with this split is to protect against volatility and ensure a steady build up of reserves. We acknowledge, however, that the network may have a different preference. Therefore, please select one or more preferences below and we'll seek to implement the one with the highest overall approval rating, subject to availability and suitability of deposit/custodial facilities:</i></p>
+                        <h5>Options</h5>
                         <p>
                             <li>100% Dash - Hold liquid reserves 100% in Dash</li>
                             <li>50:50 Dash/Gold - Hedge liquid reserves 50:50 between Dash/Custodial Gold</li>
@@ -77,7 +78,7 @@ class VoteOptions extends React.Component {
                             <li>50:50 Dash/USD - Hedge liquid reserves 50/50 Dash /USD.</li>
                         </p>
                         <Divider />
-                        <h5> How would you like the Dash Investment Foundation to hedge its designated investment funds?</h5>
+                        <h5>How would you like the Dash Investment Foundation to hedge its designated investment funds?</h5>
                         <Form onSubmit={this.onFormSubmit}>
                             <Form.Field>
                                 <Checkbox
@@ -109,21 +110,15 @@ class VoteOptions extends React.Component {
                             </Form.Field>
                             <Form.Field>
                                 <Checkbox
-                                    //radio
                                     label='100% USD'
-                                    //name='checkboxRadioGroup'
                                     value='100usd'
-                                    //checked={this.state.value === '100-usd'}
                                     onChange={this.handleChange}
                                 />
                             </Form.Field>
                             <Form.Field>
                                 <Checkbox
-                                    //radio
                                     label='50:50 Dash/USD'
-                                    //name='checkboxRadioGroup'
                                     value='dash-usd'
-                                    //checked={this.state.value === '50-50-dash-usd'}
                                     onChange={this.handleChange}
                                 />
                             </Form.Field>

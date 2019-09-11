@@ -92,7 +92,7 @@ class VoteMessage extends React.Component {
         }
         return (
             <Container as={Segment}>
-                <h5>How should consensus vote results be displayed during the voting process?</h5>
+                <h5>How would you like the Dash Investment Foundation to hedge its designated investment funds?</h5>
                  <Form>
                     <TextArea disabled value={this.props.payload} />
                 </Form>
