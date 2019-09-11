@@ -72,8 +72,8 @@ class VoteOptions extends React.Component {
                         <p>
                             <li>100% Dash - Hold liquid reserves 100% in Dash</li>
                             <li>50:50 Dash/Gold - Hedge liquid reserves 50:50 between Dash/Custodial Gold</li>
-                            <li>Equal Dash/USD/Custodial Gold - Hedge liquid reserves equally between Dash/USD/Custodial Gold</li>
-                            <li>Equal Dash/BTC/Custodial Gold - Hedge liquid reserves equally between Dash/BTC/Custodial Gold.</li>
+                            <li>33:33:33 Dash/USD/Custodial Gold - Hedge liquid reserves equally between Dash/USD/Custodial Gold</li>
+                            <li>33:33:33 Dash/BTC/Custodial Gold - Hedge liquid reserves equally between Dash/BTC/Custodial Gold.</li>
                             <li>100% USD - Hedge liquid reserves 100% into USD.</li>
                             <li>50:50 Dash/USD - Hedge liquid reserves 50/50 Dash /USD.</li>
                         </p>
@@ -96,14 +96,14 @@ class VoteOptions extends React.Component {
                             </Form.Field>
                             <Form.Field>
                                 <Checkbox
-                                    label='Equal Dash/USD/Custodial Gold'
+                                    label='33:33:33 Dash/USD/Custodial Gold'
                                     value='dash-usd-gold'
                                     onChange={this.handleChange}
                                 />
                             </Form.Field>
                             <Form.Field>
                                 <Checkbox
-                                    label='Equal Dash/BTC/Custodial Gold'
+                                    label='33:33:33 Dash/BTC/Custodial Gold'
                                     value='dash-btc-gold'
                                     onChange={this.handleChange}
                                 />
@@ -130,7 +130,7 @@ class VoteOptions extends React.Component {
                         <Divider hidden />
                         <Message compact warning><Icon name='warning'/>The poll will close on September 23rd, 2019 at 23.59 UTC.</Message>
                         <Dimmer active={this.props.shouldDim}>
-                            Option Selected
+                            Options Selected - Scroll down to continue voting
             <Divider hidden />
                             <Button
                                 inverted
