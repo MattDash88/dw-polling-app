@@ -126,7 +126,7 @@ class VoteMessage extends React.Component {
                         value={this.state.signature}
                         onChange={this.onSignatureChange}
                     />
-                    <Divider compact hidden />                                     
+                    <Divider hidden />                                     
                     <Button className="ui primary" onClick={this.submitVote}>
                         Submit Vote
                     </Button>                    

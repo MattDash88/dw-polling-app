@@ -3,7 +3,6 @@ import {
   Grid,
   Checkbox,
 } from 'semantic-ui-react';
-//import './CandidateList.css';
 
 const CandidateList = props => {
   const { candidates, onChange } = props;
@@ -13,8 +12,8 @@ const CandidateList = props => {
       label = `${text} - ${alias}`;
     }
     return (
-      <Grid.Row>
-        <Checkbox key={key} value={value} label={label} onChange={onChange} />
+      <Grid.Row key={key}>
+        <Checkbox value={value} label={label} onChange={onChange} />
       </Grid.Row>
     );
   });
