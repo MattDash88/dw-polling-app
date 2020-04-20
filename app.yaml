@@ -1,8 +1,8 @@
-service: dw-polling
+service: dw-tpe2020
 runtime: nodejs10
 env: standard
 
-instance_class: F1
+instance_class: F2
 automatic_scaling:
   target_cpu_utilization: 0.6
   min_instances: 1

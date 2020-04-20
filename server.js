@@ -9,7 +9,6 @@ const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT;
 
 const app = next({ dev });
-const serialize = data => JSON.stringify({ data });
 
 var jwtFunctions = require('./server_components/jwt_functions');
 var dbFunctions = require('./server_components/db_functions');
@@ -74,7 +73,7 @@ app.prepare()
                 var authorization = jwtFunctions.verify(token, database)
                 if (authorization == 'success') {                                                   // Try retrieving data if the user is authorized is provided
                     Promise.resolve(dbFunctions.retrieveVotes(database)).then(function (voteData) {
-                        res.status(200).end(serialize(voteData));
+                        res.status(200).send(voteData);
                     }).catch((error) => {                                                           // Run this if the retrieving functions returns an error
                         res.status(500).send('Token is valid but something went wrong retrieving the data')
                     })

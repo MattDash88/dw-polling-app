@@ -3,7 +3,7 @@ import 'semantic-ui-react'
 import {
     Container,
     Form,
-    Checkbox,
+    Label,
     Segment,
     Button,
     Divider,
@@ -15,13 +15,15 @@ import {
 import axios from 'axios';
 import copy from 'clipboard-copy';
 
+var labelText = "2. Review and submit your candidates :"
+
 class VoteMessage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             address: '',
             signature: '',
-            database: 'difpoll1'
+            database: 'tpe2020'
         }
 
         // Bind functions used in class
@@ -92,7 +94,9 @@ class VoteMessage extends React.Component {
         }
         return (
             <Container as={Segment}>
-                <h5>How would you like the Dash Investment Foundation to hedge its designated investment funds?</h5>
+                <Label as="a" ribbon>
+                    {labelText}
+                </Label>
                  <Form>
                     <TextArea disabled value={this.props.payload} />
                 </Form>

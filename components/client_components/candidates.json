@@ -1,0 +1,23 @@
+[
+    {
+        "alias": "CD 1",
+        "text": "Candidate 1",
+        "value": "can1",
+        "key": "can1"
+    }, {
+        "alias": "CD 2",
+        "text": "Candidate 2",
+        "value": "can2",
+        "key": "can2"
+    }, {
+        "alias": "CD 3",
+        "text": "Candidate 3",
+        "value": "can3",
+        "key": "can3"
+    }, {
+        "alias": "CD 5",
+        "text": "Candidate 5",
+        "value": "can5",
+        "key": "can5"
+    }
+]
