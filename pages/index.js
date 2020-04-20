@@ -1,23 +1,16 @@
 import React from 'react';
 import 'semantic-ui-react'
 import {
+    Header,
     Container,
-    Label,
-    Form,
-    Checkbox,
     Segment,
-    Button,
-    Divider,
-    TextArea,
-    Input,
     Message,
-    Dimmer,
+    Divider,
 } from 'semantic-ui-react';
 
-import Header from '../components/headers/IndexHeader';
+import PageHeader from '../components/headers/IndexHeader';
 import VoteOptions from '../components/client_components/VoteOptions';
 import VoteMessage from '../components/client_components/VoteMessage';
-
 
 class Poll extends React.Component {
     constructor(props) {
@@ -83,10 +76,12 @@ class Poll extends React.Component {
     };    
     render() {
         return (
-            <div className="ui container" style={{
+            <Container style={{
                 marginTop: '20px',
             }}>
-                <Header />
+                <PageHeader />
+                <Header as='h1' textAlign='center'>2020 Dash Trust Protectors Election</Header>
+                <Divider hidden />
                 <VoteOptions
                     label="1. Choose your voting option:"
                     setMessage={this.setMessage}
@@ -105,26 +100,26 @@ class Poll extends React.Component {
 
                 {
                     this.state.responseStatus == 'Success' && 
-                            <Container>
+                            <Segment>
                             <Message
                             success
                             header={this.state.responseStatus}
                             content={this.state.responseMessage}
                             />
-                            </Container>
+                            </Segment>
                 }
 
                 {
                    this.state.responseStatus == 'Error' && 
-                    <Container>
+                    <Segment>
                             <Message
                             error
                             header={this.state.responseStatus}
                             content={this.state.responseMessage}
                             />
-                    </Container>
+                    </Segment>
                 }
-            </div>
+            </Container>
         )
     }
 }

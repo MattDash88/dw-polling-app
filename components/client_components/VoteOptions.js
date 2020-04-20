@@ -1,7 +1,7 @@
 import React from 'react';
 import 'semantic-ui-react'
 import {
-    Container,
+    Header,
     Label,
     Form,
     Segment,
@@ -15,36 +15,36 @@ import {
 import CandidateOptions from './candidates.json';
 import CandidateList from './CandidateList';
 
-var labelText = "1. Choose your candidate(s), (select as many as you want):"
+var labelText = "1. Select your candidate(s):"
+// The message prefix is pre-pended to the message to be signed. This should
+    // be unique per application, not generic. For more info, see:
+    // https://bitcoin.stackexchange.com/questions/3337/what-are-the-safety-guidelines-for-using-the-sign-message-feature/3339#3339
+let messagePrefix = 'tpe2020-';
 
 class VoteOptions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: 'tpe2020-',
+            message: messagePrefix,
             value: new Set(),
         }
 
         // Bind functions used in class
-        this.onButtonPress = this.onButtonPress.bind(this);
+        this.onContinueButtonPress = this.onContinueButtonPress.bind(this);
+        this.onBlankButtonPress = this.onBlankButtonPress.bind(this);
         this.onResetButtonClick = this.onResetButtonClick.bind(this);
     }
-
-    // The message prefix is pre-pended to the message to be signed. This should
-    // be unique per application, not generic. For more info, see:
-    // https://bitcoin.stackexchange.com/questions/3337/what-are-the-safety-guidelines-for-using-the-sign-message-feature/3339#3339
-    messagePrefix = 'tpe2020-';
 
     handleChange = (e, { value, checked }) => {
         let stateValue = this.state.value;
 
         if (checked === true) {
             stateValue.add(value);
-          } else {
+        } else {
             stateValue.delete(value);
         }
 
-        const message = this.messagePrefix + [...stateValue].join('|');
+        const message = messagePrefix + [...stateValue].join('|');
 
         this.setState({
             value: stateValue,
@@ -52,8 +52,13 @@ class VoteOptions extends React.Component {
         })
     }
 
-    onButtonPress(event) {
+    onContinueButtonPress(event) {
         this.props.setMessage(this.state.message);
+    };
+
+    onBlankButtonPress(event) {
+        let blankMessage = messagePrefix
+        this.props.setMessage(blankMessage);
     };
 
     // Prevent page from reloading on form submit
@@ -67,42 +72,49 @@ class VoteOptions extends React.Component {
     };
 
     render() {
-        console.log(CandidateOptions)
         return (
             <main>
-                <Container>
-                    <Dimmer.Dimmable as={Segment} dimmed={this.props.shouldDim}>
+                <Dimmer.Dimmable as={Segment} dimmed={this.props.shouldDim}>
                     <Label as="a" ribbon>
                         {labelText}
                     </Label>
-                        <Divider hidden />
-                        <Form onSubmit={this.onFormSubmit} size={'big'}>
-                            <Form.Field>
-                                <CandidateList
-                                    candidates={CandidateOptions}
-                                    onChange={this.handleChange}
-                                />
-                            </Form.Field>
-                            <Divider hidden />
-                            <Button onClick={this.onButtonPress} className="ui primary">
-                                Continue
-                            </Button>
-                        </Form>
-                        <Divider hidden />
-                        <Message compact warning><Icon name='warning' />Votes cast before April 21st will not count.</Message>
-                        <Dimmer active={this.props.shouldDim}>
-                            Options Selected - Scroll down to continue voting
-            <Divider hidden />
-                            <Button
-                                inverted
-                                value="Reset Selections"
-                                onClick={this.onResetButtonClick}
-                            >
-                                Reset Selection
+                    <Divider hidden />  
+                    <Segment raised> 
+                    <Header as='h4'>Please select your candidate(s), (you may select as many as you want):</Header>              
+                    <Form onSubmit={this.onFormSubmit} size={'big'}>                    
+                        <Form.Field>
+                            <CandidateList
+                                candidates={CandidateOptions}
+                                onChange={this.handleChange}
+                            />
+                        </Form.Field>
+                        
+                        <Button onClick={this.onContinueButtonPress} className="ui primary" style={{
+                            marginRight: '20px',
+                        }}>
+                            Continue
                         </Button>
-                        </Dimmer>
-                    </Dimmer.Dimmable>
-                </Container>
+                        <Button onClick={this.onBlankButtonPress} className="ui secondary" style={{
+                            marginRight: '20px',
+                        }}>
+                            Vote Blank
+                        </Button>
+                    </Form>
+                    </Segment>
+                    <Divider hidden />
+                    <Message compact warning><Icon name='warning' />Voting will end on April 30th, 2020 at 23.59 UTC.</Message>
+                    <Dimmer active={this.props.shouldDim}>
+                        Options Selected - Scroll down to continue voting
+            <Divider hidden />
+                        <Button
+                            inverted
+                            value="Reset Selections"
+                            onClick={this.onResetButtonClick}
+                        >
+                            Reset Selection
+                        </Button>
+                    </Dimmer>
+                </Dimmer.Dimmable>
             </main>
         )
     }

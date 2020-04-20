@@ -1,7 +1,7 @@
 import React from 'react';
 import 'semantic-ui-react'
 import {
-    Container,
+    Header,
     Form,
     Label,
     Segment,
@@ -15,7 +15,8 @@ import {
 import axios from 'axios';
 import copy from 'clipboard-copy';
 
-var labelText = "2. Review and submit your candidates :"
+var reviewLabelText = "2. Review your candidate selection :"
+var submitLabelText = "3. Submit your vote :"
 
 class VoteMessage extends React.Component {
     constructor(props) {
@@ -73,7 +74,7 @@ class VoteMessage extends React.Component {
             var errorMessage = 'Address and/or Signature fields cannot be empty'
             return this.handleResponse('Error', errorMessage)
         } else {
-            // TODO: handle network errors / what if promise never returned?
+            console.log(`Vote submitted ${message}`)
             axios.post('/poll/vote', {
                 db: this.state.database,
                 addr: address,
@@ -93,19 +94,25 @@ class VoteMessage extends React.Component {
             return null;
         }
         return (
-            <Container as={Segment}>
+            <main>
+            <Segment>
                 <Label as="a" ribbon>
-                    {labelText}
+                    {reviewLabelText}
                 </Label>
-                 <Form>
+                <Header as='h4'>Please review your candidate selection:</Header> 
+                <Form>                    
                     <TextArea disabled value={this.props.payload} />
                 </Form>
                 <Divider hidden />
                 <Button className="ui primary" onClick={this.copyToClipboard}>
-                    Copy to Clipboard
+                    Copy Message to Clipboard
                 </Button>
-                <Divider hidden />
-                
+                </Segment>
+                <Segment>
+                <Label as="a" ribbon>
+                    {submitLabelText}
+                </Label>     
+                <Header as='h4'>Please sign your voting message with your Masternode address and cast your vote:</Header>           
                 <Form onSubmit={this.onFormSubmit}>
                     <Input
                         fluid
@@ -119,18 +126,18 @@ class VoteMessage extends React.Component {
                         value={this.state.signature}
                         onChange={this.onSignatureChange}
                     />
-                    <Divider hidden />         
-                            
+                    <Divider compact hidden />                                     
                     <Button className="ui primary" onClick={this.submitVote}>
                         Submit Vote
                     </Button>                    
                 </Form>
+                <Divider hidden />
                 {this.props.showVotingWarning && <Message compact>
-                        You may use the voting (recommended), owner or collateral address associated with your Masternode to vote. Only the most recent vote cast using an address associated with a Masternode will count.</Message>}
-                        <Message compact warning>
-                    <Icon name='warning' />
-                        Please only submit the Dash address and signature of your vote. We will NEVER ask for a private key.</Message>                       
-            </Container>
+                        <p>You may use the voting (recommended), owner or collateral address associated with your Masternode to vote.</p>                        
+                        <p>It is possible to vote multiple times using a Masternode address, for example if you made a mistake in your vote or changed your mind. In the case of multiple votes, only the most recent vote cast using an address associated with a Masternode will count.</p>
+                        </Message>}                      
+            </Segment>
+            </main>
             
         )
     }
