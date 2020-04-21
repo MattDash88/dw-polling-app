@@ -12,6 +12,8 @@ import PageHeader from '../components/headers/IndexHeader';
 import VoteOptions from '../components/client_components/VoteOptions';
 import VoteMessage from '../components/client_components/VoteMessage';
 
+let goLive = false
+
 class Poll extends React.Component {
     constructor(props) {
         super(props);
@@ -80,6 +82,9 @@ class Poll extends React.Component {
                 marginTop: '20px',
             }}>
                 <PageHeader />
+                {
+                   goLive == true &&
+                        <main>
                 <Header as='h1' textAlign='center'>2020 Dash Trust Protectors Elections</Header>
                 <Divider hidden />
                 <VoteOptions
@@ -119,6 +124,11 @@ class Poll extends React.Component {
                             />
                     </Segment>
                 }
+            </main>
+    }  
+    {
+        <p>The Dash Trust Protector Elections voting app will go live here soon.</p>
+    }
             </Container>
         )
     }
