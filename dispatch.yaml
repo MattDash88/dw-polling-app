@@ -1,7 +1,7 @@
 dispatch:
 # traffic routed to polling app
   - url: "tpe2020.dashwatch.org/*"
-    service: dw-polling
+    service: dw-tpe2020
 
 # All other traffic routed to dash-watch-beta app
   - url: "beta.dashwatch.org/*"
