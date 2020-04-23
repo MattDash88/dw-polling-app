@@ -1,23 +1,55 @@
 [
     {
-        "alias": "CD 1",
-        "text": "Candidate 1",
-        "value": "can1",
-        "key": "can1"
-    }, {
-        "alias": "CD 2",
-        "text": "Candidate 2",
-        "value": "can2",
-        "key": "can2"
-    }, {
-        "alias": "CD 3",
-        "text": "Candidate 3",
-        "value": "can3",
-        "key": "can3"
-    }, {
+        "alias": "unchained",
+        "text": "Hytham Abdel-Karim",
+        "value": "hkarim",
+        "key": "hkarim"
+    }, 
+    {
+        "alias": "Ash",
+        "text": "Ashley Francis",
+        "value": "afrancis",
+        "key": "afrancis"
+    }, 
+    {
         "alias": "",
-        "text": "Candidate 5",
-        "value": "can5",
-        "key": "can5"
-    }
+        "text": "Amanda Johnson",
+        "value": "ajohnson",
+        "key": "ajohnson"
+    }, 
+    {
+        "alias": "Walter",
+        "text": "Michael Lewis",
+        "value": "mlewis",
+        "key": "mlewis"
+    }, {
+        "alias": "ROTC",
+        "text": "Nathaniel Luz",
+        "value": "nluz",
+        "key": "nluz"
+    }, 
+    {
+        "alias": "",
+        "text": "Darren Tapp",
+        "value": "dtapp",
+        "key": "dtapp"
+    }, 
+    {
+        "alias": "",
+        "text": "Mark Mason",
+        "value": "mmason",
+        "key": "mmason"
+    }, 
+    {
+        "alias": "kanuuker",
+        "text": "Christopher Webb",
+        "value": "cwebb",
+        "key": "cwebb"
+    },
+    {
+        "alias": "",
+        "text": "Perry Woodin",
+        "value": "pwoodin",
+        "key": "pwoodin"
+      }
 ]

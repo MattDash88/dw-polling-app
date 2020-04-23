@@ -1,10 +1,6 @@
 dispatch:
-# traffic routed to vote verifier
-  - url: "*/verify_message"
-    service: dw-verify
-
 # traffic routed to polling app
-  - url: "*/dw-polling-dot-dwatch-184008.appspot.com/*"
+  - url: "tpe2020.dashwatch.org/*"
     service: dw-polling
 
 # All other traffic routed to dash-watch-beta app
@@ -14,10 +10,6 @@ dispatch:
 # All other traffic routed to dash-watch-beta app
   - url: "*.dashwatchbeta.org/*"
     service: dash-watch-beta
-
-# All other traffic routed to dash-watch-beta app
-  - url: "poll.dashwatch.org/*"
-    service: dw-polling
 
 # All other traffic routed to dash-watch-beta app
   - url: "dashwatchbeta.org/*"

@@ -15,7 +15,7 @@ import {
 import CandidateOptions from './candidates.json';
 import CandidateList from './CandidateList';
 
-var labelText = "1. Select your candidate(s):"
+var labelText = "1. Select your candidate(s)"
 // The message prefix is pre-pended to the message to be signed. This should
     // be unique per application, not generic. For more info, see:
     // https://bitcoin.stackexchange.com/questions/3337/what-are-the-safety-guidelines-for-using-the-sign-message-feature/3339#3339

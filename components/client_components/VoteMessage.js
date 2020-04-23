@@ -15,8 +15,8 @@ import {
 import axios from 'axios';
 import copy from 'clipboard-copy';
 
-var reviewLabelText = "2. Review your candidate selection :"
-var submitLabelText = "3. Submit your vote :"
+var reviewLabelText = "2. Review your candidate selection"
+var submitLabelText = "3. Submit your vote"
 
 class VoteMessage extends React.Component {
     constructor(props) {
