@@ -134,7 +134,7 @@ class VoteMessage extends React.Component {
                 <Divider hidden />
                 {this.props.showVotingWarning && <Message compact>
                         <p>You may use the voting (recommended), owner or collateral address associated with your Masternode to vote.</p>                        
-                        <p>It is possible to vote multiple time, for example if there was a mistake in the vote or a change in opinion. In the case of multiple votes, only the most recent vote will count.</p>
+                        <p>It is possible to vote multiple time, for example if there was a mistake in the vote or a change of opinion. In the case of multiple votes, only the most recent vote will count.</p>
                         </Message>}                      
             </Segment>
             </main>
