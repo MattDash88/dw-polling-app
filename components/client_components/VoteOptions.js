@@ -88,8 +88,8 @@ class VoteOptions extends React.Component {
                                 onChange={this.handleChange}
                             />
                         </Form.Field>
-                        
-                        <Button onClick={this.onContinueButtonPress} className="ui primary" style={{
+                        <div style={{display:'none',}}>
+                       <Button onClick={this.onContinueButtonPress} className="ui primary" style={{
                             marginRight: '20px',
                         }}>
                             Continue
@@ -99,10 +99,11 @@ class VoteOptions extends React.Component {
                         }}>
                             Vote Blank
                         </Button>
+                        </div>
                     </Form>
                     </Segment>
                     <Divider hidden />
-                    <Message compact warning><Icon name='warning' />Voting will end on Friday May 1st, 2020 at 23.59 UTC.</Message>
+                    <Message compact warning><Icon name='warning' />Voting has ended, the elections are now closed.</Message>
                     <Dimmer active={this.props.shouldDim}>
                         Options Selected - Scroll down to continue voting
             <Divider hidden />
