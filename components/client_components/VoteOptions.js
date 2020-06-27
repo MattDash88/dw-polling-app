@@ -19,7 +19,7 @@ var labelText = "1. Select your candidate(s)"
 // The message prefix is pre-pended to the message to be signed. This should
     // be unique per application, not generic. For more info, see:
     // https://bitcoin.stackexchange.com/questions/3337/what-are-the-safety-guidelines-for-using-the-sign-message-feature/3339#3339
-let messagePrefix = 'tpe2020-';
+let messagePrefix = 'dif2020-';
 
 class VoteOptions extends React.Component {
     constructor(props) {
@@ -88,7 +88,7 @@ class VoteOptions extends React.Component {
                                 onChange={this.handleChange}
                             />
                         </Form.Field>
-                        <div style={{display:'none',}}>
+                        <div>
                        <Button onClick={this.onContinueButtonPress} className="ui primary" style={{
                             marginRight: '20px',
                         }}>
@@ -103,7 +103,7 @@ class VoteOptions extends React.Component {
                     </Form>
                     </Segment>
                     <Divider hidden />
-                    <Message compact warning><Icon name='warning' />Voting has ended, the elections are now closed.</Message>
+                    <Message compact warning><Icon name='warning' />Voting will end on Friday July 10, 2020 at 23.59 GMT.</Message>
                     <Dimmer active={this.props.shouldDim}>
                         Options Selected - Scroll down to continue voting
             <Divider hidden />
