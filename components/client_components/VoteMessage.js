@@ -24,7 +24,7 @@ class VoteMessage extends React.Component {
         this.state = {
             address: '',
             signature: '',
-            database: 'dif2020'
+            database: 'tpe2021'
         }
 
         // Bind functions used in class
