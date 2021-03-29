@@ -80,7 +80,7 @@ class Poll extends React.Component {
                 marginTop: '20px',
             }}>
                 <PageHeader />
-                <Header as='h1' textAlign='center'>2021 Trust Protector Elections</Header>
+                <Header as='h1' textAlign='center'>2021 Dash Trust Protector Elections</Header>
                 <Divider hidden />
                 <VoteOptions
                     label="1. Choose your voting option:"
