@@ -24,7 +24,7 @@ class VoteMessage extends React.Component {
         this.state = {
             address: '',
             signature: '',
-            database: 'tpe2021'
+            database: 'dif2021'
         }
 
         // Bind functions used in class
@@ -74,7 +74,7 @@ class VoteMessage extends React.Component {
             var errorMessage = 'Address and/or Signature fields cannot be empty'
             return this.handleResponse('Error', errorMessage)
         } else {
-            console.log(`Vote submitted ${message}`)
+            console.log(`Vote submitted ${message} ${database}`)
             axios.post('/poll/vote', {
                 db: this.state.database,
                 addr: address,

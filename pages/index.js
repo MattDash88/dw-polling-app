@@ -12,6 +12,8 @@ import PageHeader from '../components/headers/IndexHeader';
 import VoteOptions from '../components/client_components/VoteOptions';
 import VoteMessage from '../components/client_components/VoteMessage';
 
+var topHeaderText = "2021 Dash Investment Foundation Supervisor Elections"
+
 class Poll extends React.Component {
     constructor(props) {
         super(props);
@@ -80,7 +82,7 @@ class Poll extends React.Component {
                 marginTop: '20px',
             }}>
                 <PageHeader />
-                <Header as='h1' textAlign='center'>2021 Dash Trust Protector Elections</Header>
+                <Header as='h1' textAlign='center'>{topHeaderText}</Header>
                 <Divider hidden />
                 <VoteOptions
                     label="1. Choose your voting option:"
