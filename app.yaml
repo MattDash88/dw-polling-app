@@ -1,4 +1,4 @@
-service: dw-tpe2021
+service: dw-dif2021
 runtime: nodejs10
 env: standard
 

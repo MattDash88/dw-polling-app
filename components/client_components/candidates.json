@@ -24,8 +24,8 @@
         "key": "mlewis"
     },
     {
-        "alias": "name3",
-        "text": "",
+        "alias": "",
+        "text": "name3",
         "value": "name3",
         "key": "name3"
     },
@@ -36,7 +36,7 @@
         "key": "rambrissi"
     },
     {
-        "alias": "",
+        "alias": "svenr",
         "text": "Sven Rossbach",
         "value": "srossbach",
         "key": "srossbach"
