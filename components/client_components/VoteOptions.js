@@ -106,7 +106,7 @@ class VoteOptions extends React.Component {
                     </Form>
                     </Segment>
                     <Divider hidden />
-                    <Message compact warning>Voting will close at 23:59 GMT on Friday July 9, 2021.</Message>
+                    <Message compact warning>Voting will end at 23:59 GMT on Friday July 9, 2021.</Message>
                     <Dimmer active={this.props.shouldDim}>
                         Options Selected - Scroll down to continue voting
             <Divider hidden />
