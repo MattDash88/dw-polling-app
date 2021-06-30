@@ -18,6 +18,12 @@
         "key": "gaustin"
     }, 
     {
+        "alias": "unchained",
+        "text": "Hytham Abdel-Karim",
+        "value": "hkarim",
+        "key": "hkarim"
+    },  
+    {
         "alias": "walter",
         "text": "Michael Lewis",
         "value": "mlewis",
